@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Place
+  - Fruit
   layers:
   - Default
   - TransparentFX
