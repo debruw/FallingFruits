@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class Collector : MonoBehaviour
 {
+    public GameObject[] particles;
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Fruit"))
+        if (other.CompareTag("Collectable"))
         {
             //Add score for fruit
-            Debug.Log("Fruit");
-            GameManager.Instance.AddPoint();
-            Destroy(other.gameObject);
+            if (other.GetComponent<Collectable>().myType == GameManager.Instance.targetCollectable)
+            {
+                GameManager.Instance.AddPoint();
+            }
+            else
+            {
+                GameManager.Instance.LosePoint();
+            }
+            Destroy(Instantiate(particles[(int)other.GetComponent<Collectable>().myType], other.transform.position, Quaternion.identity), 2f);
+            other.gameObject.SetActive(false);
+            Destroy(other.gameObject, 2);
         }
     }
 }
