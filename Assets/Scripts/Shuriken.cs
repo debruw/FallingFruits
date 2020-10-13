@@ -8,7 +8,8 @@ public class Shuriken : MonoBehaviour
     private float rate = 0;
 
     public float DurationInSecond;
-    bool isMouseUp, isMoving = true;
+    bool isMouseUp, isMouseDown;
+    public bool isMoving = true;
     private Vector3 target;
     public float speed = 1.0f;
     public GameObject seperator;
@@ -63,8 +64,9 @@ public class Shuriken : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 isMouseUp = false;
+                isMouseDown = true;
             }
-            if (Input.GetMouseButtonUp(0) && spline != null)
+            if (Input.GetMouseButtonUp(0) && spline != null && isMouseDown == true)
             {
                 isMouseUp = true;
                 isMoving = true;
@@ -108,6 +110,7 @@ public class Shuriken : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Collectable"))
         {
+            SoundManager.Instance.playSound(SoundManager.GameSounds.Collect);
             collision.gameObject.GetComponent<Rigidbody>().useGravity = true;
         }
     }

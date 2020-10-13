@@ -16,7 +16,8 @@ public class SoundManager : MonoBehaviour
     {
         Music,
         Lose,
-        Win
+        Win,
+        Collect
     }
 
     private void Awake()

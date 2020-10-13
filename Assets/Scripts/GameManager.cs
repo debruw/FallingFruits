@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
     public void InitializeLevel()
     {
         //TODO Test için konuldu kaldırılacak
-        currentLevel = 1;
+        currentLevel = 2;
 
         if (currentLevel > maxLevelNumber)
         {
@@ -106,10 +106,9 @@ public class GameManager : MonoBehaviour
         currentLevelProperties = currentLevelObject.GetComponent<LevelProperties>();
         targetPoint = currentLevelProperties.levelTargetPoint;
         targetCollectable = currentLevelProperties.targetCollectable;
-        InGamePanel.SetActive(true);
         LevelText.text = "Level " + (currentLevel + 1).ToString();
         currentPointText.text = currentPoint.ToString();
-        targetPointText.text = " / " + targetPoint;
+        targetPointText.text = targetPoint.ToString();
     }
 
     public void ClearAllGhostColors()
@@ -124,8 +123,9 @@ public class GameManager : MonoBehaviour
     {
         currentPoint++;
         currentPointText.text = currentPoint.ToString();
-        targetPointText.text = " / " + targetPoint;
-        if (currentPoint > targetPoint)
+        targetPointText.text = targetPoint.ToString();
+        currentPointText.GetComponent<Animator>().SetTrigger("Bounce");
+        if (currentPoint > targetPoint && !Shuriken.GetComponent<Shuriken>().isMoving)
         {
             GameWin();
         }
@@ -139,43 +139,49 @@ public class GameManager : MonoBehaviour
             currentPoint = 0;
         }
         currentPointText.text = currentPoint.ToString();
-        targetPointText.text = " / " + targetPoint;
+        targetPointText.text = targetPoint.ToString();
     }
 
     public void GameWin()
     {
+        isGameOver = true;
         Debug.Log("<color=green>Game Win!</color>");
         SoundManager.Instance.StopAllSounds();
         SoundManager.Instance.playSound(SoundManager.GameSounds.Win);
         currentPoint = 0;
         isGameStarted = false;
+        InGamePanel.SetActive(false);
         GameWinPanel.SetActive(true);
         Destroy(currentLevelObject);
         currentLevel++;
         PlayerPrefs.SetInt("LevelId", currentLevel);
-
+        SoundManager.Instance.playSound(SoundManager.GameSounds.Win);
         if (PlayerPrefs.GetInt("VIBRATION") == 1)
             TapticManager.Impact(ImpactFeedback.Light);
     }
 
     public void CheckGameLose()
     {
-        if (currentLevelProperties.splines.Count == 0)
+        if (!isGameOver)
         {
-            GameLose();
+            if (currentLevelProperties.splines.Count == 0)
+            {
+                GameLose();
+            }
         }
     }
 
     public void GameLose()
     {
         Debug.Log("<color=red>Game Lose!</color>");
-        InGamePanel.SetActive(false);
+        //InGamePanel.SetActive(false);
         SoundManager.Instance.StopAllSounds();
         SoundManager.Instance.playSound(SoundManager.GameSounds.Lose);
         currentPoint = 0;
         GameLosePanel.SetActive(true);
         isGameOver = true;
         isGameStarted = false;
+        SoundManager.Instance.playSound(SoundManager.GameSounds.Lose);
         if (PlayerPrefs.GetInt("VIBRATION") == 1)
             TapticManager.Impact(ImpactFeedback.Light);
     }
@@ -187,8 +193,9 @@ public class GameManager : MonoBehaviour
 
     public void TapToStartButtonClick()
     {
-        isGameStarted = true;
+        isGameStarted = true;        
         StartPanel.SetActive(false);
+        InGamePanel.SetActive(true);
     }
 
     public void TapToNextButtonClick()
@@ -198,6 +205,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("UseMenu", 0);
         InitializeLevel();
         GameWinPanel.SetActive(false);
+        InGamePanel.SetActive(true);
         isGameStarted = true;
         isGameOver = false;
     }
