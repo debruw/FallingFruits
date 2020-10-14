@@ -8,7 +8,7 @@ public class Collector : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!GameManager.Instance.isGameStarted || GameManager.Instance.isGameOver)
+        if (GameManager.Instance.isGameOver)
         {
             return;
         }

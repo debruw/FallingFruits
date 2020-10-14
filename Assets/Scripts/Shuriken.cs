@@ -23,7 +23,7 @@ public class Shuriken : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.isGameStarted || GameManager.Instance.isGameOver)
+        if (GameManager.Instance.isGameOver)
         {
             return;
         }
@@ -112,7 +112,7 @@ public class Shuriken : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!GameManager.Instance.isGameStarted || GameManager.Instance.isGameOver)
+        if (GameManager.Instance.isGameOver)
         {
             return;
         }

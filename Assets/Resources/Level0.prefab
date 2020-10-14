@@ -118,7 +118,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 90, z: 0}
   scale: {x: 0.1, y: 0.1, z: 0.1}
   generateCollider: 0
-  updateInPlayMode: 1
+  updateInPlayMode: 0
   curveSpace: 1
   mode: 2
 --- !u!114 &4327849472131075405

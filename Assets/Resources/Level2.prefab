@@ -244,7 +244,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 90, z: 0}
   scale: {x: 0.1, y: 0.1, z: 0.1}
   generateCollider: 0
-  updateInPlayMode: 1
+  updateInPlayMode: 0
   curveSpace: 1
   mode: 2
 --- !u!114 &237761174
@@ -261,6 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultColor: {fileID: 2100000, guid: ad79c3912e450254cb0debe297240253, type: 2}
   GhostColor: {fileID: 2100000, guid: edfec80578e604744b7ba1a4aaf2dee1, type: 2}
+  meshRenderers: []
 --- !u!1 &332806448
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,7 +576,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 90, z: 0}
   scale: {x: 0.1, y: 0.1, z: 0.1}
   generateCollider: 0
-  updateInPlayMode: 1
+  updateInPlayMode: 0
   curveSpace: 1
   mode: 2
 --- !u!114 &867790097
@@ -592,6 +593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultColor: {fileID: 2100000, guid: ad79c3912e450254cb0debe297240253, type: 2}
   GhostColor: {fileID: 2100000, guid: edfec80578e604744b7ba1a4aaf2dee1, type: 2}
+  meshRenderers: []
 --- !u!1 &928211467
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,7 +1492,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 90, z: 0}
   scale: {x: 0.1, y: 0.1, z: 0.1}
   generateCollider: 0
-  updateInPlayMode: 1
+  updateInPlayMode: 0
   curveSpace: 1
   mode: 2
 --- !u!114 &4327849472131075405
@@ -1507,6 +1509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultColor: {fileID: 2100000, guid: ad79c3912e450254cb0debe297240253, type: 2}
   GhostColor: {fileID: 2100000, guid: edfec80578e604744b7ba1a4aaf2dee1, type: 2}
+  meshRenderers: []
 --- !u!1 &4327849472185476856
 GameObject:
   m_ObjectHideFlags: 0

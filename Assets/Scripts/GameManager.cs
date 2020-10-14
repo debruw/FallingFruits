@@ -11,14 +11,12 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get { return _instance; } }
 
-    int currentLevel = 0;
+    public int currentLevel = 0;
     int maxLevelNumber = 19;
-    [HideInInspector]
-    GameObject currentLevelObject;
-    [HideInInspector]
+    public GameObject currentLevelObject;
     public LevelProperties currentLevelProperties;
-    public GameObject soundManager;
-    public bool isGameStarted, isGameOver;
+    //public GameObject soundManager;
+    public bool isGameOver;
 
     public GameObject Shuriken;
     int currentPoint, targetPoint;
@@ -45,24 +43,6 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
-        if (PlayerPrefs.HasKey("LevelId"))
-        {
-            currentLevel = PlayerPrefs.GetInt("LevelId");
-        }
-        else
-        {
-            PlayerPrefs.SetInt("LevelId", currentLevel);
-        }
-        if (PlayerPrefs.GetInt("UseMenu").Equals(1) || !PlayerPrefs.HasKey("UseMenu"))
-        {
-            StartPanel.SetActive(true);
-            PlayerPrefs.SetInt("UseMenu", 1);
-        }
-        else if (PlayerPrefs.GetInt("UseMenu").Equals(0))
-        {
-            InGamePanel.SetActive(true);
-        }
-
         if (!PlayerPrefs.HasKey("VIBRATION"))
         {
             PlayerPrefs.SetInt("VIBRATION", 1);
@@ -79,36 +59,10 @@ public class GameManager : MonoBehaviour
                 VibrationButton.GetComponent<Image>().sprite = off;
             }
         }
-        if (SoundManager.Instance == null)
-        {
-            Instantiate(soundManager);
-        }
         InitializeLevel();
     }
     public void InitializeLevel()
     {
-        //TODO Test için konuldu kaldırılacak
-        //currentLevel = 2;
-        if (currentLevelObject != null)
-        {
-            Destroy(currentLevelObject);
-        }
-
-        if (currentLevel > maxLevelNumber)
-        {
-            int rand = Random.Range(0, maxLevelNumber);
-            if (rand == PlayerPrefs.GetInt("LastLevel"))
-            {
-                rand = Random.Range(0, maxLevelNumber);
-            }
-            PlayerPrefs.SetInt("LastLevel", rand);
-            currentLevelObject = Instantiate(Resources.Load("Level" + rand), new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-        }
-        else
-        {
-            Debug.Log("Level : " + currentLevel);
-            currentLevelObject = Instantiate(Resources.Load("Level" + currentLevel), new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-        }
         currentLevelProperties = currentLevelObject.GetComponent<LevelProperties>();
         targetPoint = currentLevelProperties.levelTargetPoint;
         targetCollectable = currentLevelProperties.targetCollectable;
@@ -156,7 +110,6 @@ public class GameManager : MonoBehaviour
         SoundManager.Instance.StopAllSounds();
         SoundManager.Instance.playSound(SoundManager.GameSounds.Win);
         currentPoint = 0;
-        isGameStarted = false;
         //InGamePanel.SetActive(false);
         GameWinPanel.SetActive(true);
         //Destroy(currentLevelObject);
@@ -187,7 +140,6 @@ public class GameManager : MonoBehaviour
         currentPoint = 0;
         GameLosePanel.SetActive(true);
         isGameOver = true;
-        isGameStarted = false;
         SoundManager.Instance.playSound(SoundManager.GameSounds.Lose);
         if (PlayerPrefs.GetInt("VIBRATION") == 1)
             TapticManager.Impact(ImpactFeedback.Light);
@@ -195,12 +147,11 @@ public class GameManager : MonoBehaviour
 
     public void RetryButtonClick()
     {
-        SceneManager.LoadScene("Scene_Game");
+        SceneManager.LoadScene("Level" + currentLevel);
     }
 
     public void TapToStartButtonClick()
     {
-        isGameStarted = true;
         StartPanel.SetActive(false);
         InGamePanel.SetActive(true);
     }
@@ -209,17 +160,18 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("VIBRATION") == 1)
             TapticManager.Impact(ImpactFeedback.Light);
-        PlayerPrefs.SetInt("UseMenu", 0);
-        InitializeLevel();
-        GameWinPanel.SetActive(false);
-        InGamePanel.SetActive(true);
-        isGameStarted = true;
-        isGameOver = false;
-    }
 
-    private void OnApplicationPause(bool pause)
-    {
-        PlayerPrefs.SetInt("UseMenu", 1);
+        GameWinPanel.SetActive(false);
+        isGameOver = false;
+
+        if (currentLevel > 2)
+        {
+            SceneManager.LoadScene("Level0");
+        }
+        else
+        {
+            SceneManager.LoadScene("Level" + currentLevel);
+        }
     }
 
     public void VibrateButtonClick()
