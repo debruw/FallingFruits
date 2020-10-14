@@ -7,7 +7,7 @@ public class SplineControl : MonoBehaviour
     public Material DefaultColor;
     public Material GhostColor;
 
-    MeshRenderer[] meshRenderers;
+    public MeshRenderer[] meshRenderers;
 
     private void Start()
     {

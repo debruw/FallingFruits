@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Blue
+  m_Name: Orange
   m_Shader: {fileID: 4800000, guid: 7f50d1ec77e2cc9459ca9d36924ffc53, type: 3}
   m_ShaderKeywords: BACKSOLID BOTTOMSOLID FRONTSOLID LEFTSOLID RIGHTSOLID TOPSOLID
     _AOUV_UV0 _GRADIENTSPACE_WORLD_SPACE _GRADSETTINGS_B_USE_GLOBAL _GRADSETTINGS_D_USE_GLOBAL
@@ -50,7 +50,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 8}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
         m_Texture: {fileID: 0}
@@ -89,7 +89,7 @@ Material:
     - _FogHeight: 10
     - _FogYStartPos: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0
+    - _Glossiness: 0.3
     - _GlossyReflections: 1
     - _GradSettings_B: 0
     - _GradSettings_D: 0
@@ -160,13 +160,13 @@ Material:
     m_Colors:
     - _AOColor: {r: 0, g: 0, b: 0, a: 1}
     - _AmbientColor: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.6179246, g: 0.82497865, b: 1, a: 1}
-    - _Color1_B: {r: 0.6179246, g: 0.82497865, b: 1, a: 1}
-    - _Color1_D: {r: 0.6179246, g: 0.82497865, b: 1, a: 1}
-    - _Color1_F: {r: 0.6179246, g: 0.82497865, b: 1, a: 1}
-    - _Color1_L: {r: 0.37058824, g: 0.4941177, b: 0.6, a: 1}
-    - _Color1_R: {r: 0.4956863, g: 0.6588236, b: 0.8, a: 1}
-    - _Color1_T: {r: 0.49411765, g: 0.6588236, b: 0.8, a: 1}
+    - _Color: {r: 1, g: 0, b: 0, a: 1}
+    - _Color1_B: {r: 0.9294118, g: 0.56078434, b: 0.1254902, a: 1}
+    - _Color1_D: {r: 0.874, g: 0.52735025, b: 0.118008435, a: 1}
+    - _Color1_F: {r: 0.9294118, g: 0.56078434, b: 0.1254902, a: 1}
+    - _Color1_L: {r: 0.9294118, g: 0.56078434, b: 0.1254902, a: 1}
+    - _Color1_R: {r: 0.9294118, g: 0.56078434, b: 0.1254902, a: 1}
+    - _Color1_T: {r: 0.769, g: 0.46399578, b: 0.10383122, a: 1}
     - _Color2_B: {r: 1, g: 1, b: 1, a: 1}
     - _Color2_D: {r: 1, g: 1, b: 1, a: 1}
     - _Color2_F: {r: 1, g: 1, b: 1, a: 1}
@@ -188,9 +188,9 @@ Material:
     - _GradientYStartPos_G: {r: 0, g: 0, b: 0, a: 0}
     - _GradientYStartPos_L: {r: 0, g: 0, b: 0, a: 0}
     - _GradientYStartPos_R: {r: 0, g: 0, b: 0, a: 0}
-    - _HColor: {r: 0.7688679, g: 0.89277387, b: 1, a: 1}
+    - _HColor: {r: 0.785, g: 0.785, b: 0.785, a: 1}
     - _LMColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SColor: {r: 0.31179774, g: 0.41292134, b: 0.5, a: 1}
+    - _SColor: {r: 0.195, g: 0.195, b: 0.195, a: 1}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _TintColor: {r: 0, g: 0, b: 0, a: 1}

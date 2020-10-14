@@ -77,7 +77,7 @@ public class Shuriken : MonoBehaviour
 
     IEnumerator WaitAndCheck()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         GameManager.Instance.CheckGameLose();
     }
 
@@ -92,23 +92,31 @@ public class Shuriken : MonoBehaviour
     {
         if (other.CompareTag("Place"))
         {
-            if (spline != other.GetComponentInParent<Spline>())
+            if (GameManager.Instance.currentLevelProperties.splines.Count == 1)
             {
-                GameManager.Instance.ClearAllGhostColors();
                 other.GetComponentInParent<SplineControl>().SetGhostColor();
                 spline = other.GetComponentInParent<Spline>();
+            }
+            else
+            {
+                if (spline != other.GetComponentInParent<Spline>())
+                {
+                    Debug.Log("1");
+                    GameManager.Instance.ClearAllGhostColors();
+                    other.GetComponentInParent<SplineControl>().SetGhostColor();
+                    spline = other.GetComponentInParent<Spline>();
+                }
             }
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Place"))
+        if (!GameManager.Instance.isGameStarted || GameManager.Instance.isGameOver)
         {
-            collision.gameObject.GetComponentInParent<SplineControl>().SetGhostColor();
-            spline = collision.gameObject.GetComponentInParent<Spline>();
+            return;
         }
-        else if (collision.gameObject.CompareTag("Collectable"))
+        if (collision.gameObject.CompareTag("Collectable"))
         {
             SoundManager.Instance.playSound(SoundManager.GameSounds.Collect);
             collision.gameObject.GetComponent<Rigidbody>().useGravity = true;

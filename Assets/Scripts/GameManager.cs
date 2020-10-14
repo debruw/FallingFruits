@@ -30,7 +30,9 @@ public class GameManager : MonoBehaviour
     public Text targetPointText, LevelText, WinText;
     public GameObject VibrationButton;
     public GameObject GameWinPanel, StartPanel, InGamePanel, GameLosePanel;
+    public Image FruitHelpImage;
     public Sprite on, off;
+    public Sprite[] fruitIcons;
     #endregion
 
     private void Awake()
@@ -86,7 +88,11 @@ public class GameManager : MonoBehaviour
     public void InitializeLevel()
     {
         //TODO Test için konuldu kaldırılacak
-        currentLevel = 2;
+        //currentLevel = 2;
+        if (currentLevelObject != null)
+        {
+            Destroy(currentLevelObject);
+        }
 
         if (currentLevel > maxLevelNumber)
         {
@@ -106,6 +112,7 @@ public class GameManager : MonoBehaviour
         currentLevelProperties = currentLevelObject.GetComponent<LevelProperties>();
         targetPoint = currentLevelProperties.levelTargetPoint;
         targetCollectable = currentLevelProperties.targetCollectable;
+        FruitHelpImage.sprite = fruitIcons[(int)targetCollectable];
         LevelText.text = "Level " + (currentLevel + 1).ToString();
         currentPointText.text = currentPoint.ToString();
         targetPointText.text = targetPoint.ToString();
@@ -125,7 +132,7 @@ public class GameManager : MonoBehaviour
         currentPointText.text = currentPoint.ToString();
         targetPointText.text = targetPoint.ToString();
         currentPointText.GetComponent<Animator>().SetTrigger("Bounce");
-        if (currentPoint > targetPoint && !Shuriken.GetComponent<Shuriken>().isMoving)
+        if (currentPoint >= targetPoint && !Shuriken.GetComponent<Shuriken>().isMoving)
         {
             GameWin();
         }
@@ -150,9 +157,9 @@ public class GameManager : MonoBehaviour
         SoundManager.Instance.playSound(SoundManager.GameSounds.Win);
         currentPoint = 0;
         isGameStarted = false;
-        InGamePanel.SetActive(false);
+        //InGamePanel.SetActive(false);
         GameWinPanel.SetActive(true);
-        Destroy(currentLevelObject);
+        //Destroy(currentLevelObject);
         currentLevel++;
         PlayerPrefs.SetInt("LevelId", currentLevel);
         SoundManager.Instance.playSound(SoundManager.GameSounds.Win);
@@ -193,7 +200,7 @@ public class GameManager : MonoBehaviour
 
     public void TapToStartButtonClick()
     {
-        isGameStarted = true;        
+        isGameStarted = true;
         StartPanel.SetActive(false);
         InGamePanel.SetActive(true);
     }

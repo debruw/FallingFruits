@@ -6,8 +6,9 @@ public class Collectable : MonoBehaviour
 {
     public enum CollectableType
     {
-        RedSphere,
-        GreenSphere,
+        Apple,
+        Orange,
+        Pear,
 
         Last
     }

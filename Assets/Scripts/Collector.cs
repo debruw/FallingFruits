@@ -8,6 +8,10 @@ public class Collector : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!GameManager.Instance.isGameStarted || GameManager.Instance.isGameOver)
+        {
+            return;
+        }
         if (other.CompareTag("Collectable"))
         {
             //Add score for fruit
