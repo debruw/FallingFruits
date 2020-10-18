@@ -1139,6 +1139,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level0
       objectReference: {fileID: 0}
+    - target: {fileID: 4327849472185476856, guid: 427c81241327f0648bfc6f38dcf240bf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4327849472185476857, guid: 427c81241327f0648bfc6f38dcf240bf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1194,6 +1199,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4327849472305912187, guid: 427c81241327f0648bfc6f38dcf240bf,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 1107525186}
+    - target: {fileID: 7816444233184797894, guid: 427c81241327f0648bfc6f38dcf240bf,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 1538165800}
     - target: {fileID: 4327849472906974860, guid: 427c81241327f0648bfc6f38dcf240bf,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -1229,16 +1244,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4327849472305912187, guid: 427c81241327f0648bfc6f38dcf240bf,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 1107525186}
-    - target: {fileID: 7816444233184797894, guid: 427c81241327f0648bfc6f38dcf240bf,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 1538165800}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 427c81241327f0648bfc6f38dcf240bf, type: 3}
 --- !u!1 &1940737565
@@ -1253,7 +1258,6 @@ GameObject:
   - component: {fileID: 1940737568}
   - component: {fileID: 1940737567}
   - component: {fileID: 1940737570}
-  - component: {fileID: 1940737569}
   m_Layer: 5
   m_Name: GameNameText
   m_TagString: Untagged
@@ -1322,21 +1326,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1940737565}
   m_CullTransparentMesh: 0
---- !u!114 &1940737569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1940737565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.59099996, g: 0.59099996, b: 0.59099996, a: 1}
-  m_EffectDistance: {x: 4, y: -4}
-  m_UseGraphicAlpha: 1
 --- !u!114 &1940737570
 MonoBehaviour:
   m_ObjectHideFlags: 0

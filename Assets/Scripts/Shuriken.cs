@@ -38,6 +38,7 @@ public class Shuriken : MonoBehaviour
                 spline.gameObject.GetComponentInChildren<BoxCollider>().enabled = false;
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
                 transform.localPosition = localStartPosition;
+                seperator.GetComponent<Animator>().SetTrigger("back");
                 StartCoroutine(WaitAndCheck());
             }
             else

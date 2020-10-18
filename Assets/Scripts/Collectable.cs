@@ -9,6 +9,8 @@ public class Collectable : MonoBehaviour
         Apple,
         Orange,
         Pear,
+        Grape,
+        Banana,
 
         Last
     }
