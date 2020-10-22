@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     public Image FruitHelpImage;
     public Sprite on, off;
     public Sprite[] fruitIcons;
+    public GameObject levelTutorial, levelTutorial1, levelTutorial2;
     #endregion
 
     private void Awake()
@@ -70,6 +71,10 @@ public class GameManager : MonoBehaviour
         LevelText.text = "Level " + (currentLevel + 1).ToString();
         currentPointText.text = currentPoint.ToString();
         targetPointText.text = targetPoint.ToString();
+        if (currentLevel == 0 || currentLevel == 1 || currentLevel == 2)
+        {
+            levelTutorial.SetActive(true);
+        }
     }
 
     public void ClearAllGhostColors()
@@ -86,10 +91,6 @@ public class GameManager : MonoBehaviour
         currentPointText.text = currentPoint.ToString();
         targetPointText.text = targetPoint.ToString();
         currentPointText.GetComponent<Animator>().SetTrigger("Bounce");
-        if (currentPoint >= targetPoint && !Shuriken.GetComponent<Shuriken>().isMoving)
-        {
-            GameWin();
-        }
     }
 
     public void LosePoint()
@@ -110,6 +111,10 @@ public class GameManager : MonoBehaviour
         SoundManager.Instance.StopAllSounds();
         SoundManager.Instance.playSound(SoundManager.GameSounds.Win);
         currentPoint = 0;
+        if (currentLevel == 1)
+        {
+            levelTutorial2.SetActive(false);
+        }
         //InGamePanel.SetActive(false);
         GameWinPanel.SetActive(true);
         //Destroy(currentLevelObject);
@@ -131,6 +136,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void CheckGameEnd()
+    {
+        if (currentPoint >= targetPoint)
+        {
+            GameWin();
+        }
+        else
+        {
+            GameLose();
+        }
+    }
+
     public void GameLose()
     {
         Debug.Log("<color=red>Game Lose!</color>");
@@ -141,6 +158,10 @@ public class GameManager : MonoBehaviour
         GameLosePanel.SetActive(true);
         isGameOver = true;
         SoundManager.Instance.playSound(SoundManager.GameSounds.Lose);
+        if (currentLevel == 1)
+        {
+            levelTutorial2.SetActive(false);
+        }
         if (PlayerPrefs.GetInt("VIBRATION") == 1)
             TapticManager.Impact(ImpactFeedback.Light);
     }
@@ -164,7 +185,7 @@ public class GameManager : MonoBehaviour
         GameWinPanel.SetActive(false);
         isGameOver = false;
 
-        if (currentLevel > 2)
+        if (currentLevel > maxLevelNumber)
         {
             SceneManager.LoadScene("Level0");
         }

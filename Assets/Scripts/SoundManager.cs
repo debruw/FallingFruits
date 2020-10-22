@@ -17,7 +17,8 @@ public class SoundManager : MonoBehaviour
         Music,
         Lose,
         Win,
-        Collect
+        Collect,
+        CoinPick
     }
 
     private void Awake()

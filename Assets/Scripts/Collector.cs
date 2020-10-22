@@ -5,6 +5,7 @@ using UnityEngine;
 public class Collector : MonoBehaviour
 {
     public GameObject[] particles;
+    public GameObject CoinParticle;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -26,6 +27,28 @@ public class Collector : MonoBehaviour
             Destroy(Instantiate(particles[(int)other.GetComponent<Collectable>().myType], other.transform.position, Quaternion.identity), 2f);
             other.gameObject.SetActive(false);
             Destroy(other.gameObject, 2);
+        }
+        else if (other.CompareTag("Coin"))
+        {
+            SoundManager.Instance.playSound(SoundManager.GameSounds.CoinPick);
+            Destroy(Instantiate(CoinParticle, other.transform.position, Quaternion.identity), 2f);
+            other.gameObject.SetActive(false);
+            Destroy(other.gameObject, 2);
+        }
+        if (GameManager.Instance.currentLevelProperties.splines.Count == 0)
+        {
+            // There is no other spline
+            if (GameManager.Instance.currentLevel == 9 ||
+                GameManager.Instance.currentLevel == 14 ||
+                GameManager.Instance.currentLevel == 19)
+            {//Check bonus levels
+                GameManager.Instance.GameWin();
+            }
+            else
+            {                
+                GameManager.Instance.CheckGameEnd();
+            }
+            
         }
     }
 }

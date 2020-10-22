@@ -7,6 +7,7 @@ TagManager:
   - Place
   - FruitAndVeggies
   - Collectable
+  - Coin
   layers:
   - Default
   - TransparentFX

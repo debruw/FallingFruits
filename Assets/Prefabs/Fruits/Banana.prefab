@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7775085226471644315}
   - component: {fileID: 2936365323282089141}
   - component: {fileID: 7426432944676879124}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Banana
   m_TagString: Collectable
   m_Icon: {fileID: 0}
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 2932178431271432100}
   m_LocalRotation: {x: 0.21592417, y: -0.21592417, z: -0.6733326, w: 0.6733326}
   m_LocalPosition: {x: 3.93, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0

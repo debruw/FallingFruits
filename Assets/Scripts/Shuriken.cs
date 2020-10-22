@@ -14,11 +14,13 @@ public class Shuriken : MonoBehaviour
     public float speed = 1.0f;
     public GameObject seperator;
     public Vector3 localStartPosition;
+    public Quaternion localStartRotation;
 
     private void Start()
     {
         target = transform.position;
         localStartPosition = transform.localPosition;
+        localStartRotation = transform.localRotation;
     }
 
     private void Update()
@@ -38,8 +40,11 @@ public class Shuriken : MonoBehaviour
                 spline.gameObject.GetComponentInChildren<BoxCollider>().enabled = false;
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
                 transform.localPosition = localStartPosition;
+                GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+                transform.localRotation = localStartRotation;
+                spline = null;
                 seperator.GetComponent<Animator>().SetTrigger("back");
-                StartCoroutine(WaitAndCheck());
+                //StartCoroutine(WaitAndCheck());
             }
             else
             {
@@ -48,6 +53,11 @@ public class Shuriken : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 seperator.GetComponent<Animator>().SetTrigger("hit");
+                if (GameManager.Instance.currentLevel == 1)
+                {
+                    GameManager.Instance.levelTutorial1.SetActive(false);
+                    GameManager.Instance.levelTutorial2.SetActive(true);
+                }
             }
             if (Input.GetMouseButtonUp(0))
             {
@@ -71,14 +81,23 @@ public class Shuriken : MonoBehaviour
             {
                 isMouseUp = true;
                 isMoving = true;
+                isMouseDown = false;
                 rate = 0;
+                if (GameManager.Instance.currentLevel == 0 || GameManager.Instance.currentLevel == 1 || GameManager.Instance.currentLevel == 2)
+                {
+                    GameManager.Instance.levelTutorial.SetActive(false);
+                }
+                if (GameManager.Instance.currentLevel == 1)
+                {
+                    GameManager.Instance.levelTutorial1.SetActive(true);
+                }
             }
         }
     }
 
     IEnumerator WaitAndCheck()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         GameManager.Instance.CheckGameLose();
     }
 
@@ -86,7 +105,7 @@ public class Shuriken : MonoBehaviour
     {
         CurveSample sample = spline.GetSample(rate);
         transform.localPosition = sample.location;
-        transform.localRotation = new Quaternion(sample.Rotation.x + 0, transform.localRotation.y, sample.Rotation.z + 90, sample.Rotation.w + 0);
+        transform.localRotation = new Quaternion(sample.Rotation.x, sample.Rotation.y, sample.Rotation.z, sample.Rotation.w);
     }
 
     private void OnTriggerStay(Collider other)
@@ -102,7 +121,6 @@ public class Shuriken : MonoBehaviour
             {
                 if (spline != other.GetComponentInParent<Spline>())
                 {
-                    Debug.Log("1");
                     GameManager.Instance.ClearAllGhostColors();
                     other.GetComponentInParent<SplineControl>().SetGhostColor();
                     spline = other.GetComponentInParent<Spline>();
@@ -118,6 +136,11 @@ public class Shuriken : MonoBehaviour
             return;
         }
         if (collision.gameObject.CompareTag("Collectable"))
+        {
+            SoundManager.Instance.playSound(SoundManager.GameSounds.Collect);
+            collision.gameObject.GetComponent<Rigidbody>().useGravity = true;
+        }
+        else if (collision.gameObject.CompareTag("Coin"))
         {
             SoundManager.Instance.playSound(SoundManager.GameSounds.Collect);
             collision.gameObject.GetComponent<Rigidbody>().useGravity = true;
