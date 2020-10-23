@@ -56,7 +56,6 @@ public class Shuriken : MonoBehaviour
                 if (GameManager.Instance.currentLevel == 1)
                 {
                     GameManager.Instance.levelTutorial1.SetActive(false);
-                    GameManager.Instance.levelTutorial2.SetActive(true);
                 }
             }
             if (Input.GetMouseButtonUp(0))
@@ -144,6 +143,19 @@ public class Shuriken : MonoBehaviour
         {
             SoundManager.Instance.playSound(SoundManager.GameSounds.Collect);
             collision.gameObject.GetComponent<Rigidbody>().useGravity = true;
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("TimeSlower"))
+        {
+            Debug.Log("Time Slow!");
+            Time.timeScale = .5f;
+        }
+        else if (other.CompareTag("TimeFaster"))
+        {
+            Debug.Log("Time Fast!");
+            Time.timeScale = 1f;
         }
     }
 

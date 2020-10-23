@@ -8,6 +8,8 @@ TagManager:
   - FruitAndVeggies
   - Collectable
   - Coin
+  - TimeSlower
+  - TimeFaster
   layers:
   - Default
   - TransparentFX

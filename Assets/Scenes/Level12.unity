@@ -4069,6 +4069,11 @@ PrefabInstance:
       propertyPath: levelTutorial2
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4159360133999815145, guid: c6615c938dc4059459a7480b261366ac,
+        type: 3}
+      propertyPath: DurationInSecond
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6615c938dc4059459a7480b261366ac, type: 3}
 --- !u!1001 &1547299201
@@ -5376,7 +5381,7 @@ MonoBehaviour:
   splines:
   - {fileID: 4327849472070242343}
   - {fileID: 227291132}
-  levelTargetPoint: 30
+  levelTargetPoint: 25
   targetCollectable: 2
 --- !u!33 &1142583781210957583
 MeshFilter:

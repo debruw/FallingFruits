@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public Image FruitHelpImage;
     public Sprite on, off;
     public Sprite[] fruitIcons;
-    public GameObject levelTutorial, levelTutorial1, levelTutorial2;
+    public GameObject levelTutorial, levelTutorial1;
     #endregion
 
     private void Awake()
@@ -111,14 +111,18 @@ public class GameManager : MonoBehaviour
         SoundManager.Instance.StopAllSounds();
         SoundManager.Instance.playSound(SoundManager.GameSounds.Win);
         currentPoint = 0;
-        if (currentLevel == 1)
-        {
-            levelTutorial2.SetActive(false);
-        }
         //InGamePanel.SetActive(false);
         GameWinPanel.SetActive(true);
         //Destroy(currentLevelObject);
-        currentLevel++;
+        if(currentLevel < 19)
+        {
+            currentLevel++;
+        }
+        else
+        {
+            currentLevel = Random.Range(3, maxLevelNumber);
+        }
+        
         PlayerPrefs.SetInt("LevelId", currentLevel);
         SoundManager.Instance.playSound(SoundManager.GameSounds.Win);
         if (PlayerPrefs.GetInt("VIBRATION") == 1)
@@ -158,10 +162,6 @@ public class GameManager : MonoBehaviour
         GameLosePanel.SetActive(true);
         isGameOver = true;
         SoundManager.Instance.playSound(SoundManager.GameSounds.Lose);
-        if (currentLevel == 1)
-        {
-            levelTutorial2.SetActive(false);
-        }
         if (PlayerPrefs.GetInt("VIBRATION") == 1)
             TapticManager.Impact(ImpactFeedback.Light);
     }
@@ -187,7 +187,7 @@ public class GameManager : MonoBehaviour
 
         if (currentLevel > maxLevelNumber)
         {
-            SceneManager.LoadScene("Level0");
+            SceneManager.LoadScene("Level" + Random.Range(3, maxLevelNumber));
         }
         else
         {
