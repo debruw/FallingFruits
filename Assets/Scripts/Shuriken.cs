@@ -31,7 +31,8 @@ public class Shuriken : MonoBehaviour
         }
         if (isMouseUp && isMoving)
         {
-            rate += Time.deltaTime / DurationInSecond;
+            //rate += (Time.deltaTime * spline.nodes.Count) / 5;
+            rate += Time.deltaTime;
             if (rate > spline.nodes.Count - 1)
             {
                 isMoving = false;
@@ -56,6 +57,7 @@ public class Shuriken : MonoBehaviour
                 if (GameManager.Instance.currentLevel == 1)
                 {
                     GameManager.Instance.levelTutorial1.SetActive(false);
+                    GameManager.Instance.levelTutorial2.SetActive(true);
                 }
             }
             if (Input.GetMouseButtonUp(0))
@@ -94,14 +96,16 @@ public class Shuriken : MonoBehaviour
         }
     }
 
-    IEnumerator WaitAndCheck()
-    {
-        yield return new WaitForSeconds(3f);
-        GameManager.Instance.CheckGameLose();
-    }
+    //IEnumerator WaitAndCheck()
+    //{
+    //    yield return new WaitForSeconds(1.5f);
+    //    GameManager.Instance.CheckGameEnd();
+    //}
 
     private void PlaceFollower()
     {
+        //Debug.Log("rate: " + rate);
+        //Debug.Log(Time.deltaTime);
         CurveSample sample = spline.GetSample(rate);
         transform.localPosition = sample.location;
         transform.localRotation = new Quaternion(sample.Rotation.x, sample.Rotation.y, sample.Rotation.z, sample.Rotation.w);

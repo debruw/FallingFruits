@@ -8,6 +8,7 @@ public class Seperator : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Collectable"))
         {
+            collision.gameObject.GetComponent<Rigidbody>().useGravity = true;
             collision.gameObject.transform.parent = transform;
         }
     }

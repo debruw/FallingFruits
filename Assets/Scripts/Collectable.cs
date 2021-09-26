@@ -11,6 +11,7 @@ public class Collectable : MonoBehaviour
         Pear,
         Grape,
         Banana,
+        Coin,
 
         Last
     }

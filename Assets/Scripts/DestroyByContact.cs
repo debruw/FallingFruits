@@ -8,6 +8,20 @@ public class DestroyByContact : MonoBehaviour
     {
         if (other.CompareTag("Collectable"))
         {
+            GameManager.Instance.currentLevelProperties.RemoveFruit(other.gameObject);
+            if (GameManager.Instance.currentLevelProperties.fruits.Count <= 0)
+            {
+                GameManager.Instance.CheckGameEnd();
+            }
+            Destroy(other.gameObject);
+        }
+        else if(other.CompareTag("Coin"))
+        {
+            GameManager.Instance.currentLevelProperties.RemoveFruit(other.gameObject);
+            if (GameManager.Instance.currentLevelProperties.fruits.Count <= 0)
+            {
+                GameManager.Instance.CheckGameEnd();
+            }
             Destroy(other.gameObject);
         }
     }

@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public Image FruitHelpImage;
     public Sprite on, off;
     public Sprite[] fruitIcons;
-    public GameObject levelTutorial, levelTutorial1;
+    public GameObject levelTutorial, levelTutorial1, levelTutorial2;
     #endregion
 
     private void Awake()
@@ -68,9 +68,17 @@ public class GameManager : MonoBehaviour
         targetPoint = currentLevelProperties.levelTargetPoint;
         targetCollectable = currentLevelProperties.targetCollectable;
         FruitHelpImage.sprite = fruitIcons[(int)targetCollectable];
+        if (PlayerPrefs.GetInt("LevelId") > 19)
+        {
+            currentLevel = PlayerPrefs.GetInt("LevelId");
+        }
         LevelText.text = "Level " + (currentLevel + 1).ToString();
         currentPointText.text = currentPoint.ToString();
         targetPointText.text = targetPoint.ToString();
+        if (currentLevel == 0 || currentLevel == 1 || currentLevel == 2)
+        {
+            levelTutorial.SetActive(true);
+        }
         if (currentLevel == 0 || currentLevel == 1 || currentLevel == 2)
         {
             levelTutorial.SetActive(true);
@@ -110,57 +118,54 @@ public class GameManager : MonoBehaviour
         Debug.Log("<color=green>Game Win!</color>");
         SoundManager.Instance.StopAllSounds();
         SoundManager.Instance.playSound(SoundManager.GameSounds.Win);
-        currentPoint = 0;
+        //currentPoint = 0;
         //InGamePanel.SetActive(false);
+        if (currentLevel == 1)
+        {
+            levelTutorial2.SetActive(false);
+        }
         GameWinPanel.SetActive(true);
         //Destroy(currentLevelObject);
-        if(currentLevel < 19)
-        {
-            currentLevel++;
-        }
-        else
-        {
-            currentLevel = Random.Range(3, maxLevelNumber);
-        }
-        
+
+        currentLevel++;
+
         PlayerPrefs.SetInt("LevelId", currentLevel);
         SoundManager.Instance.playSound(SoundManager.GameSounds.Win);
         if (PlayerPrefs.GetInt("VIBRATION") == 1)
             TapticManager.Impact(ImpactFeedback.Light);
     }
 
-    public void CheckGameLose()
+    public void CheckGameEnd()
     {
         if (!isGameOver)
         {
             if (currentLevelProperties.splines.Count == 0)
             {
-                GameLose();
-            }
-        }
-    }
 
-    public void CheckGameEnd()
-    {
-        if (currentPoint >= targetPoint)
-        {
-            GameWin();
-        }
-        else
-        {
-            GameLose();
+                if (currentPoint >= targetPoint)
+                {
+                    GameWin();
+                }
+                else
+                {
+                    GameLose();
+                }
+            }
         }
     }
 
     public void GameLose()
     {
+        isGameOver = true;
         Debug.Log("<color=red>Game Lose!</color>");
-        //InGamePanel.SetActive(false);
         SoundManager.Instance.StopAllSounds();
         SoundManager.Instance.playSound(SoundManager.GameSounds.Lose);
-        currentPoint = 0;
+        //currentPoint = 0;
         GameLosePanel.SetActive(true);
-        isGameOver = true;
+        if (currentLevel == 1)
+        {
+            levelTutorial2.SetActive(false);
+        }
         SoundManager.Instance.playSound(SoundManager.GameSounds.Lose);
         if (PlayerPrefs.GetInt("VIBRATION") == 1)
             TapticManager.Impact(ImpactFeedback.Light);
@@ -168,7 +173,20 @@ public class GameManager : MonoBehaviour
 
     public void RetryButtonClick()
     {
-        SceneManager.LoadScene("Level" + currentLevel);
+        if (currentLevel > maxLevelNumber)
+        {
+            int random = Random.Range(3, maxLevelNumber);
+            if (random == PlayerPrefs.GetInt("LastRandom"))
+            {
+                random = Random.Range(3, maxLevelNumber);
+            }
+            PlayerPrefs.SetInt("LastRandom", random);
+            SceneManager.LoadScene("Level" + random);
+        }
+        else
+        {
+            SceneManager.LoadScene("Level" + currentLevel);
+        }
     }
 
     public void TapToStartButtonClick()
@@ -187,7 +205,13 @@ public class GameManager : MonoBehaviour
 
         if (currentLevel > maxLevelNumber)
         {
-            SceneManager.LoadScene("Level" + Random.Range(3, maxLevelNumber));
+            int random = Random.Range(3, maxLevelNumber);
+            if (random == PlayerPrefs.GetInt("LastRandom"))
+            {
+                random = Random.Range(3, maxLevelNumber);
+            }
+            PlayerPrefs.SetInt("LastRandom", random);
+            SceneManager.LoadScene("Level" + random);
         }
         else
         {
